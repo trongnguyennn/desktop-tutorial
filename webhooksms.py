@@ -13,7 +13,7 @@ logging.basicConfig(level='INFO')
 # Two parts, GSM default / UCS2, SMS with UDH
 parts, encoding_flag, msg_type_flag = smpplib.gsm.make_parts(u'Hello World €$£')
 
-client = smpplib.client.Client('smscsim.smpp.org', 2775)
+client = smpplib.client.Client('10.51.37.196', 6200)
 
 # Print when obtain message_id
 client.set_message_sent_handler(
@@ -27,19 +27,19 @@ def handle_deliver_sm(pdu):
 client.set_message_received_handler(lambda pdu: handle_deliver_sm(pdu))
 
 client.connect()
-client.bind_transceiver(system_id='SYSTEMID', password='PASSWORD')
+client.bind_transceiver(system_id='smscloud', password='smscloud')
 
 for part in parts:
     pdu = client.send_message(
         source_addr_ton=smpplib.consts.SMPP_TON_ALNUM,
         source_addr_npi=smpplib.consts.SMPP_NPI_UNK,
         # Make sure it is a byte string, not unicode:
-        source_addr='MelroseLabs',
+        source_addr='TEST',
 
         dest_addr_ton=smpplib.consts.SMPP_TON_INTL,
         dest_addr_npi=smpplib.consts.SMPP_NPI_ISDN,
         # Make sure these two params are byte strings, not unicode:
-        destination_addr='447712345678',
+        destination_addr='84766642199',
         short_message=part,
 
         data_coding=encoding_flag,
