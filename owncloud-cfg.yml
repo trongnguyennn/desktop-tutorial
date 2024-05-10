@@ -1,0 +1,28 @@
+version: "3"
+services:
+  owncloud:
+    image: owncloud/server:10.14
+    container_name: owncloud_server
+    restart: always
+    ports:
+      - ${HTTP_PORT}:8080
+    environment:
+      - OWNCLOUD_DOMAIN=192.168.21.82
+      - OWNCLOUD_TRUSTED_DOMAINS=192.168.21.82:8080
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=192.168.21.107
+      - OWNCLOUD_ADMIN_USERNAME=admin
+      - OWNCLOUD_ADMIN_PASSWORD=admin
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=192.168.21.107
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - files:/mnt/data
