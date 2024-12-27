@@ -1,0 +1,40 @@
+<Sysmon schemaversion="4.22">
+  <!-- Capture process creation (Event ID 1) -->
+  <EventFiltering>
+    <ProcessCreate onmatch="include"/>
+  </EventFiltering>
+
+  <!-- Capture network connections (Event ID 3) -->
+  <EventFiltering>
+    <NetworkConnect onmatch="include"/>
+  </EventFiltering>
+
+  <!-- Capture create remote thread (Event ID 8) -->
+  <EventFiltering>
+    <CreateRemoteThread onmatch="include"/>
+  </EventFiltering>
+
+  <!-- Capture file creation (Event ID 11) -->
+  <EventFiltering>
+    <FileCreate onmatch="include"/>
+  </EventFiltering>
+
+  <!-- Capture named pipe creation (Event ID 17) -->
+  <EventFiltering>
+    <PipeEvent onmatch="include">
+      <PipeCreate onmatch="include"/>
+    </PipeEvent>
+  </EventFiltering>
+
+  <!-- Capture named pipe connection (Event ID 18) -->
+  <EventFiltering>
+    <PipeEvent onmatch="include">
+      <PipeConnected onmatch="include"/>
+    </PipeEvent>
+  </EventFiltering>
+
+  <!-- Capture DNS queries (Event ID 22) -->
+  <EventFiltering>
+    <DnsQuery onmatch="include"/>
+  </EventFiltering>
+</Sysmon>
